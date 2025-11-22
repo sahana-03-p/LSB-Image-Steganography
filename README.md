@@ -10,11 +10,16 @@
 
 ##  🧠 How It Works
 1) **Encoding**
-    -> Reads the source image pixel data.
-    -> Replaces the **least significant bits** of each pixel with bits of the secret data.
-    -> Writes the modified pixels to a new image.
 
-2) **Decoding**
-    -> Reads the LSBs from that new image.
-    -> Extracts the original hidden message or file.
+   -> Reads the source image pixel data.
+
+   -> Replaces the **least significant bits** of each pixel with bits of the secret data.
+
+   -> Writes the modified pixels to a new image.
+
+3) **Decoding**
+
+   -> Reads the LSBs from that new image.
+
+   -> Extracts the original hidden message or file.
     
