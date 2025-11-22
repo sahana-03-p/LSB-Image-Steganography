@@ -1,0 +1,89 @@
+1. Project Title  : LSB Image Steganography
+
+2. Name           : Sahana B Patil
+
+3.Start date      : 05/11/2025
+
+4.End date        : 10/11/2025
+
+5.Description     : The art and science of hiding information by embedding messages within other, 
+                    seemingly harmless messages. Bits of unused data are replaced by bits of valuable 
+                    information using LSB mechanism. Sender and receiver will have individual key / secret 
+                    based on which they will be able to extract the actual data from the image. 
+                    This project also gives basic level understanding of image processing methodologies.
+
+6.Sample input and outputs:
+
+   Key Features:
+   - Encodes text files into 24-bit BMP images
+   - Decodes hidden messages from stego images
+   - Supports multiple file formats (.txt, .c, .sh, .h)
+   - Verifies image capacity before encoding
+   - Uses magic string "#*" for stego image identification
+   - Maintains original image dimensions and quality
+
+   Technical Implementation:
+   - Each secret byte (8 bits) is distributed across 8 image bytes (1 bit per byte)
+   - BMP header (54 bytes) is preserved unchanged
+   - Encodes file metadata (extension, size) along with content
+
+   ENCODING PROCESS:
+
+   Input:
+   - Source Image: beautiful.bmp (1024×768)
+   - Secret File: secret.txt containing "My password is SECRET ;)"
+   - Command: ./a.out -e beautiful.bmp secret.txt default.bmp
+
+   Output:
+   - Stego Image: default.bmp (visually identical to original)
+   - Console Output:
+        Opening Files Done...
+        Secret file size: 26 bytes
+        Secret file extension: .txt
+        width = 1024
+        height = 768
+        Checking the capacity done...
+        Header Copied Successfully...
+        Encoded Magic string Successfully...
+        Encoded secret File extention Size Successfully...
+        Encoded secret File extention Successfully...
+        Encoded secret File Size Successfully...
+        Encoded secret File data Successfully...
+        ENCODING COMPLETED SUCCESSFULLY!
+
+   DECODING PROCESS:
+
+   Input:
+   - Stego Image: default.bmp
+   - Command: ./a.out -d default.bmp
+
+   Output:
+   - Secret File: output.txt
+   - Console Output:
+        Stego image file opened successfully
+        BMP header skipped
+        Magic string verified
+        Secret file extension size decoded: 4
+        --output.txt
+        Secret file extension decoded: .txt
+        Secret file size decoded: 24
+        Secret file data decoded successfully
+        DECODING COMPLETED SUCCESSFULLY!
+
+   FILE COMPARISON:
+
+   Original vs Stego Image:
+   - File sizes: Both 2,359,351 bytes (identical)
+   - Visual appearance: No visible difference
+   - Pixel analysis: Only LSBs modified 
+   
+   Original vs Decoded Secret:
+   - secret.txt: "My password is SECRET ;)" (24 bytes)
+   - output.txt: "My password is SECRET ;)" (24 bytes)
+   - Content: Exactly identical
+
+7. Error Handling Examples:
+   - Insufficient capacity: "Error: Image does not have sufficient capacity"
+   - Invalid BMP / stego: "Error: Invalid argument for encoding\n"
+                          "Error: Invalid argument for decoding\n"
+   - File not found: "ERROR: Unable to open file"
